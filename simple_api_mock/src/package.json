@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "node ./app.js"
+    "serve": "node ./app.js",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jest": "^26.0.1"
   }
 }

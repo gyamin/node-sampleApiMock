@@ -1,6 +1,8 @@
 const express = require('express')
+const port = 3000
 const fs = require('fs');
 const bodyParser = require('body-parser')
+const jsonHandler = require('./data/json_handler')
 
 const app = express()
 app.use(bodyParser.urlencoded({
@@ -13,18 +15,29 @@ app.get('/', function (req, res) {
     res.send('Hello World')
 })
 
-// ユーザ一覧を返す
+// === ユーザ ===
+const user_sample = {"id":1,"login_id":"test001@test.com","password":"12345678","last_nmae":"テスト","first_name":"００１","birthday":"2000-01-01"}
+const userHandler = new jsonHandler('user', user_sample)
+// ユーザ一覧取得
 app.get('/users', function (req, res) {
-    const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf8'));
+    const users = userHandler.select()
     res.send(users)
 })
 
-// ユーザを追加する
+// ユーザ追加
 app.post('/users/', function (req, res) {
-    const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf8'));
-    users.push(req.body)
-    fs.writeFileSync('./data/users.json', JSON.stringify(users));
+    userHandler.insert(req.body)
     res.send()
 })
 
-app.listen(3000)
+// ユーザ削除
+app.delete('/users/', function (req, res) {
+    userHandler.delete(req.body.id)
+    res.send()
+})
+
+// === ニュース ===
+
+// express起動
+app.listen(port)
+console.log("listening at localhost:" + port)
