@@ -1,16 +1,19 @@
 const fs = require('fs');
 
 class JsonHandler {
-    constructor(name, structure) {
+    constructor(name, structure=null) {
         this.name = name
         this.structure = structure
 
-        this.jsonPath = "./data" + "/" + this.name + ".json"
+        this.jsonPath = "./data/json/" + "/" + this.name + ".json"
     }
 
     checkStructure(object) {
         if(typeof object !== "object") {
             throw '対象がオブジェクト形式でありません。'
+        }
+        if(this.structure === null) {
+            return
         }
         for(let key of Object.keys(object)) {
             // keyが構造設定に存在しない場合エラー
