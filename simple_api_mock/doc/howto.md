@@ -93,7 +93,7 @@ $ curl -X GET localhost:3000/users
 
 - ユーザの削除
 ```
-$ curl -X DELETE -H "Content-Type: application/json" -d '{"id":3}' localhost:3000/user
+$ curl -X DELETE localhost:3000/users/3
 ```
 
 ```
@@ -101,5 +101,31 @@ $ curl -X GET localhost:3000/users
 [
     {"id":1,"login_id":"test001@test.com","password":"12345678","last_nmae":"","first_name":"","birthday":"2000-01-06"},
     {"id":2,"login_id":"test002@test.com","password":"12345678","last_nmae":"","first_name":"","birthday":"2000-01-06"}
+]
+```
+
+- 備品一覧の取得
+```
+$ curl http://localhost:3000/equipments
+[
+    {"id":1,"name":"MacBook Pro (16-inch, 2019)","color":"シルバー","manageId":"00001"},
+    {"id":2,"name":"MacBook Pro (13-inch, 2019, Two Thunderbolt 3 ports)","color":"スペースグレイ","manageId":"00002"},
+    {"id":3,"name":"MacBook Pro (15-inch, 2019)","color":"シルバー","manageId":"00003"},
+    {"id":4,"name":"MacBook Pro (13-inch, 2019, Four Thunderbolt 3 ports)","color":"スペースグレイ","manageId":"00004"},
+    {"id":5,"name":"MacBook Pro (15-inch, 2018)","color":"シルバー","manageId":"00005"},
+    {"id":6,"name":"MacBook Pro (13-inch, 2018, Four Thunderbolt 3 ports)","color":"シルバー","manageId":"00006"},
+    {"id":7,"name":"MacBook Pro (15-inch, 2017)","color":"シルバー","manageId":"00007"},
+    {"id":8,"name":"MacBook Pro (13-inch, 2017, Four Thunderbolt 3 ports)","color":"シルバー","manageId":"00008"},
+    {"id":9,"name":"MacBook Pro (13-inch, 2017, Two Thunderbolt 3 ports)","color":"シルバー","manageId":"00009"},
+    {"id":10,"name":"MacBook Pro (15-inch, 2016)","color":"シルバー","manageId":"00010"}
+]
+```
+
+- ユーザ割当備品の取得
+```
+$ curl http://localhost:3000/users/1/equipments
+[
+    {"id":1,"name":"MacBook Pro (16-inch, 2019)","color":"シルバー","manageId":"00001"},
+    {"id":2,"name":"MacBook Pro (13-inch, 2019, Two Thunderbolt 3 ports)","color":"スペースグレイ","manageId":"00002"}
 ]
 ```

@@ -47,6 +47,18 @@ class JsonHandler {
         }
     }
 
+    selectByKey(key, value) {
+        let selected = []
+        const data = this.readJson()
+        let index = data.findIndex((v) => v[key] === value);
+        while (index != -1) {
+            selected.push(data[index]);
+            data.splice(index,1)
+            index = data.findIndex((v) => v[key] === value);
+        }
+        return selected
+    }
+
     insert(object) {
         this.checkStructure(object)
         const data = this.readJson()
