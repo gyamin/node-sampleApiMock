@@ -1,16 +1,19 @@
 const fs = require('fs');
 
 class JsonHandler {
-    constructor(name, structure) {
+    constructor(name, structure=null) {
         this.name = name
         this.structure = structure
 
-        this.jsonPath = "./data" + "/" + this.name + ".json"
+        this.jsonPath = "./data/json/" + "/" + this.name + ".json"
     }
 
     checkStructure(object) {
         if(typeof object !== "object") {
             throw '対象がオブジェクト形式でありません。'
+        }
+        if(this.structure === null) {
+            return
         }
         for(let key of Object.keys(object)) {
             // keyが構造設定に存在しない場合エラー
@@ -42,6 +45,18 @@ class JsonHandler {
         }else{
             return this.readJson()
         }
+    }
+
+    selectByKey(key, value) {
+        let selected = []
+        const data = this.readJson()
+        let index = data.findIndex((v) => v[key] === value);
+        while (index != -1) {
+            selected.push(data[index]);
+            data.splice(index,1)
+            index = data.findIndex((v) => v[key] === value);
+        }
+        return selected
     }
 
     insert(object) {
